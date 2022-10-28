@@ -1,5 +1,6 @@
 package Pages;
 
+import Enums.ProductDescriptionPage_Enums;
 import Enums.ProductQuestionAndAnswer_Enums;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -7,6 +8,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
 import java.time.Duration;
 import java.util.List;
 
@@ -17,11 +19,12 @@ public class ProductDescriptionPage {
     List<WebElement> productColour;
 
     By searchedProduct = By.xpath("//span[@id='productTitle']");
-    String productSizeXpath = "//div[@id='variation_size_name']//ul//li";
+    String productSizeXpath = "//div[@id='%s']//ul//li";
     String productColourXpath = "//div[@id='variation_color_name']//ul//li";
     By productColourValueDisplayed = By.xpath("//div[@id='variation_color_name']//label[@class='a-form-label']//following::span[1]");
     By questionAndAnswerLink = By.xpath("//span[contains(text(),' 391 answered questions ')]");
     String questions = "//div[contains(@class,'askTeaserQuestions')]//div[@id='%s']";
+    String answers = "//div[@id='%s']//following::div[contains(@class,'a-spacing-base')][1]";
     By addToCartButton = By.xpath("//input[@id='add-to-cart-button']");
     By viewCartButton = By.xpath("//span[@id='attach-sidesheet-view-cart-button-announce']");
 
@@ -36,7 +39,7 @@ public class ProductDescriptionPage {
     }
 
     public void searchedProductSize() {
-        productSize = driver.findElements(By.xpath(productSizeXpath));
+        productSize = driver.findElements(By.xpath(String.format(productSizeXpath, ProductDescriptionPage_Enums.ProductSizeVariation_Id.getResourcesName())));
         int numberOfProductSize = productSize.size();
         System.out.println("Product sizes are : ");
         for (int i = 0; i < numberOfProductSize; i++) {
@@ -46,7 +49,7 @@ public class ProductDescriptionPage {
     }
 
     public void searchedProductColour() {
-        productColour = driver.findElements(By.xpath(productColourXpath));
+        productColour = driver.findElements(By.xpath(String.format(productColourXpath, ProductDescriptionPage_Enums.ProductColourVariation_Id.getResourcesName())));
         int numberOfProductColour = productColour.size();
         System.out.println("Product colours are : ");
         for (int j = 0; j < numberOfProductColour; j++) {
@@ -63,6 +66,8 @@ public class ProductDescriptionPage {
             Thread.sleep(2000);
             String questionValue = driver.findElement(By.xpath(String.format(questions, c.getResourcesName()))).getText();
             System.out.println(questionValue);
+            String answerValue = driver.findElement(By.xpath(String.format(answers, c.getResourcesName()))).getText();
+            System.out.println(answerValue);
         }
     }
 
