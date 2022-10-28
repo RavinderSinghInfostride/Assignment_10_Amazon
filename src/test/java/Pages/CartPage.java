@@ -14,7 +14,7 @@ public class CartPage {
 
     By productAddedVerify = By.xpath("//span[@class='a-truncate-cut']");
     By quantityDropdown = By.xpath("(//div[@class='a-row sc-action-links']//span[@class='a-button-inner'])[1]");
-    String productQuantityValue = "//a[@id='quantity_4']";
+    String productQuantityValue = "//a[@id='%s']";
     By verifyProductQuantity = By.xpath("//span[@class='a-dropdown-prompt']");
     By totalOrderAmount = By.xpath("//div[contains(@class,'sc-subtotal-activecart')]");
 
