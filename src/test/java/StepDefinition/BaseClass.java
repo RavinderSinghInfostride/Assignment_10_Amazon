@@ -1,16 +1,18 @@
-package Pages;
+package StepDefinition;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import java.io.FileReader;
 import java.io.IOException;
+import java.time.Duration;
 import java.util.Properties;
 
 public class BaseClass {
     WebDriver driver;
-    protected PageFactory pageFactory;
+    WebDriverWait wait;
 
     public void setup() throws IOException {
         FileReader reader = new FileReader("src\\test\\java\\TestData\\Data.properties");
@@ -21,6 +23,10 @@ public class BaseClass {
         driver = new ChromeDriver(chromeOptions);
         driver.manage().window().maximize();
         driver.navigate().to(testData.getProperty("url"));
-        pageFactory = new PageFactory(driver);
+        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+    }
+
+    public void closeBrowser() {
+        driver.quit();
     }
 }
